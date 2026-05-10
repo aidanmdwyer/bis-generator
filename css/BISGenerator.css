@@ -1,0 +1,77 @@
+#mainContent {
+    text-align: center;
+    margin: 0 auto 50px auto;
+    width: 700px;
+}
+#documentation {
+    max-width: 900px;
+    margin: 20px auto 20px auto;
+    background-color: #dfdfdf;
+    padding: 20px 40px 40px 40px;
+    border-radius: 20px;
+}
+
+#fileInput {
+    display: none;
+}
+#uploadBox {
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 500px;
+    height: 500px;
+}
+#uploadImg {
+    width: 70%;
+    height: 70%;
+    pointer-events: none;
+}
+
+#downloadButtons button {
+    min-width: 250px;
+    max-width: 500px;
+    min-height: 70px;
+    font-size: 20px;
+    padding: 5px;
+    margin: 10px;
+}
+
+#progressBar {
+    display: none;
+}
+
+#uploadBox.dragover {
+    background-color: #b5b5b5;
+}
+
+#uploadText {
+    margin: 15px;
+}
+#uploadText.error {
+    color: red;
+}
+hr {
+    border: none;
+    height: 2px;
+    background-color: dimgray;
+}
+
+#dropZone {
+    display: inline-block;
+    cursor: pointer;
+    border: 3px dashed #bbb;
+    border-radius: 20px;
+    transition: 0.3s;
+}
+#dropZone.dragover {
+    border-color: #007bff;
+    background-color: #f0f8ff;
+}
+
+.footer {
+    color: #c1c1c1;
+    margin: 10px auto 10px auto;
+    text-align: center;
+}

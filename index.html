@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>BIS Generator</title>
+  <link rel="stylesheet" href="css/BISGenerator.css">
+  <link rel="icon" type="image/x-icon" href="/imgs/favicon.png">
+  <script src="modules/jszip.min.js"></script>
+  <script src="modules/docx.min.js"></script>
+</head>
+<body>
+<div id="mainContent">
+  <h1>BIS Generator</h1>
+  <h2 style="margin-bottom: 0;">Click or drag to upload a Service Agreement Word Document</h2>
+  <h3 style="margin-top: 0;">(must be ".docx" file, not a PDF)</h3>
+  <p style="color:red; font-size:14px;">DISCLAIMER: This tool is prone to mistakes if the formatting of the Service Agreement is not exact. After using, always do a quick review of the generated BIS to ensure no mistakes were made.</p>
+  <label for="fileInput" id="dropZone">
+        <span id="uploadBox">
+            <img src="/imgs/upload.png" id="uploadImg" alt="Upload Image">
+        </span>
+  </label>
+  <input type="file" id="fileInput" accept=".docx, .xml">
+  <div id="uploadText"></div>
+  <progress id="progressBar" max="100" value="0"></progress>
+  <div id="downloadButtons"></div>
+  <hr style="margin: 30px auto 0 auto; max-width: 900px;">
+
+  <div style="max-width: 900px; margin: 0 auto;">
+    <h2 style="margin-bottom: 0;">How To Use This Tool</h2>
+    <p style="margin-top: 5px;">Drag and drop your Service Agreement Word document into the upload area to generate a Building Inspection Sheet instantly. Then click the "Download BIS" button(s) to get your BIS as a Word document.</p>
+    <p>Please ensure the uploaded service agreement is a ".docx" file, not a ".doc" or ".pdf" file. To change a ".doc" file into ".docx", open it in Microsoft Word and save the file as a regular "Word Document".</p>
+    <p>If you get an "ERROR" message, read the instructions below on how to format the service agreement correctly.</p>
+    <p>If you get a "WARNING" message, you can download the BIS anyway, but you likely will have to edit it to fix mistakes.</p>
+  </div>
+</div>
+
+<div id="documentation">
+  <h1 style="margin-top: 10px;">FORMATTING GUIDELINES</h1>
+  <p>This tool is used to convert a Service Agreement Word Document to a Building Inspection Sheet instantly. It requires some simple formatting of the Service Agreement in order to work correctly. Either follow <a href="/serviceAgreementTemplate.docx" download="Service Agreement Template.docx">this template</a> to make your Service Agreement, or update an existing Service Agreement so that it follows the rules described below.</p>
+  <hr>
+  <h2>UPDATING STYLES</h2>
+  <p>This tool requires you to set certain pieces of text, like the building name and area names, to certain styles located under the "home" tab.</p>
+  <p>To update styles as instructed in the upcoming steps, simply select the first piece of text you would like to update, right-click on the correct heading in the toolbar and select "Update Heading to Match Selection". Now that the style is set, select any other pieces of text you would like to update, and simply select the heading in the toolbar.</p>
+  <img src="/imgs/updateStyle1.png" alt="Update Styles" style="width:100%">
+  <hr>
+  <h2>BUILDING NAME</h2>
+  <p>The name of the building as seen at the very beginning of the Service Agreement must be given "Heading 1" style.</p>
+  <img src="/imgs/buildingName.png" alt="Building Name" style="width:50%">
+  <img src="/imgs/selectedHeading1.png" alt="Heading 1" style="width:30%">
+  <p>If your document contains Service Agreements for multiple buildings, give "Heading 1" style to each building name and the generator will create multiple BISs.</p>
+  <hr>
+  <h2>BUILDING AREAS</h2>
+  <p>The name of each area to be cleaned must be given "Heading 2" style.</p>
+  <img src="/imgs/areaNames.png" alt="Area Names" style="width:60%">
+  <img src="/imgs/selectedHeading2.png" alt="Heading 2" style="width:30%">
+  <hr>
+  <h2>TEXT AFTER LAST AREA (optional)</h2>
+  <p>This is not required but may help the generator read the document if it contains extra text after the main Service Agreement portion.</p>
+  <p>Find the first piece of text after the last building area and give it "Heading 3" style.</p>
+  <img src="/imgs/afterLastArea.png" alt="After Last Area" style="width:50%">
+  <img src="/imgs/selectedHeading3.png" alt="Heading 3" style="width:30%">
+  <hr>
+  <h2>SECTION TITLES</h2>
+  <p>Each section title must be italicized.</p>
+  <img src="/imgs/sectionTitles1.png" alt="Section Titles 1" style="width:60%">
+  <h3>Section Keywords</h3>
+  <p>This tool is designed to recognize certain keywords from the section title to correctly identify which tasks get done on which days. The keywords this tool can recognize are as follows:</p>
+  <ul>
+    <li>Individual days
+      <ul>
+        <li>Services to be performed Monday, Wednesday, Friday etc.</li>
+      </ul>
+      <br>
+    </li>
+    <li>A span of days
+      <ul>
+        <li>Monday-Friday</li>
+        <li>Monday through Friday</li>
+      </ul>
+      <br>
+    </li>
+    <li>All available days (will include any days that are included elsewhere in the document)
+      <ul>
+        <li>daily</li>
+        <li>every day</li>
+        <li>every night</li>
+        <li>every shift</li>
+      </ul>
+      <br>
+    </li>
+    <li>Every day of the week (Monday-Sunday)
+      <ul>
+        <li>every day of the week</li>
+        <li>seven days a week</li>
+        <li>seven nights a week</li>
+        <li>seven times a week</li>
+      </ul>
+      <br>
+    </li>
+    <li>Weekdays (Monday-Friday)
+      <ul>
+        <li>any text that contains the word "weekday"</li>
+      </ul>
+      <br>
+    </li>
+    <li>Weekly
+      <ul>
+        <li>any text that contains the word "week"</li>
+      </ul>
+      <br>
+    </li>
+    <li>Monthly
+      <ul>
+        <li>any text that contains the word "month"</li>
+      </ul>
+      <br>
+    </li>
+    <li>Quarterly
+      <ul>
+        <li>any text that contains the word "quarter"</li>
+      </ul>
+      <br>
+    </li>
+    <li>As needed (instead of leaving checkboxes open, "complete as needed" will be written in the checkbox space)
+      <ul>
+        <li>any text that contains the word "as needed"</li>
+      </ul>
+      <br>
+    </li>
+    <li style="color:red;">
+      WARNING: The following are examples that will not be recognized by this tool, as it has no way of knowing how to translate them to the BIS.
+      <ul>
+        <li>Services to be performed three days a week (please specify which days)</li>
+        <li>biweekly (will just register as "weekly", same goes for bimonthly or biquarterly)</li>
+        <li>twice per month (registers as "monthly")</li>
+        <li>once every two weeks (registers as "weekly")</li>
+        <li>once per year</li>
+        <li>Any line item that says somebody other than the IC will do the task (this tool will include it on the BIS as an IC task)</li>
+      </ul>
+    </li>
+  </ul>
+  <p>If any of your sections do not follow these keywords correctly, the generated BIS could be faulty. Please review every generated BIS carefully and correct mistakes.</p>
+  <hr>
+  <h2>LINE ITEMS</h2>
+  <p>The line items under a section must be in a bulleted list.</p>
+  <img src="/imgs/lineItems.png" alt="Line Items" style="width:30%">
+  <p>numbered line items, nested bullets, and other ways of writing line items will NOT be properly accounted for. if your Service Agreement includes them, please correct any errors in the generated BIS.</p>
+  <img src="/imgs/numberedLineItems.png" alt="Nested Line Items" style="width:25%">
+  <img src="/imgs/nestedLineItems.png" alt="Nested Line Items" style="width:30%">
+</div>
+
+<p class="footer">Version 2.0, 2025</p>
+
+<script src="js/stringUtility.js"></script>
+<script src="js/input.js"></script>
+<script src="js/dropzone.js"></script>
+<script src="js/docReader.js"></script>
+<script src="js/docBuilder.js"></script>
+</body>
+</html>
