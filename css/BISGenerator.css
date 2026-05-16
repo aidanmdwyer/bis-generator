@@ -70,15 +70,21 @@ hr {
     background-color: #f0f8ff;
 }
 
-#conversionCount {
-    color: black;
+#conversionCountContainer {
     text-align: center;
-    font-family: monospace;
-    font-size: 16px;
+    display: none;
+    flex-direction: column;
+}
+#conversionCountContainer p {
+    margin: 0;
+}
+#conversionCount {
+    font-family: "Arial Black", sans-serif;
+    font-size: 36px;
 }
 
 .footer {
     color: #c1c1c1;
-    margin: 10px auto 10px auto;
+    margin: 30px auto 10px auto;
     text-align: center;
 }
