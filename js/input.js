@@ -20,6 +20,8 @@ function generateDownloads(docData) {
         btn.innerText = 'Download \n"' + k + '"\n BIS';
         downloadsSection.appendChild(btn);
     });
+
+    fetch('/php/incrementCount.php');
 }
 
 const uploadText = document.getElementById("uploadText");

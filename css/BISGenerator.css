@@ -70,6 +70,13 @@ hr {
     background-color: #f0f8ff;
 }
 
+#conversionCount {
+    color: black;
+    text-align: center;
+    font-family: monospace;
+    font-size: 16px;
+}
+
 .footer {
     color: #c1c1c1;
     margin: 10px auto 10px auto;
